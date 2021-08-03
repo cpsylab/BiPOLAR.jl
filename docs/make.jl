@@ -6,11 +6,11 @@ DocMeta.setdocmeta!(Lithium, :DocTestSetup, :(using Lithium); recursive=true)
 makedocs(;
     modules=[Lithium],
     authors="Abraham Nunes",
-    repo="https://github.com/abrahamnunes/Lithium.jl/blob/{commit}{path}#{line}",
+    repo="https://github.com/cpsylab/Lithium.jl/blob/{commit}{path}#{line}",
     sitename="Lithium.jl",
     format=Documenter.HTML(;
         prettyurls=get(ENV, "CI", "false") == "true",
-        canonical="https://abrahamnunes.github.io/Lithium.jl",
+        canonical="https://cpsylab.github.io/Lithium.jl",
         assets=String[],
     ),
     pages=[
@@ -19,5 +19,5 @@ makedocs(;
 )
 
 deploydocs(;
-    repo="github.com/abrahamnunes/Lithium.jl",
+    repo="github.com/cpsylab/Lithium.jl",
 )
