@@ -4,7 +4,7 @@ CurrentModule = Lithium
 
 # Lithium
 
-Documentation for [Lithium](https://github.com/abrahamnunes/Lithium.jl).
+Documentation for [Lithium](https://github.com/cpsylab/Lithium.jl).
 
 ```@index
 ```
