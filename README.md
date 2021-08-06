@@ -8,3 +8,12 @@
 [![Build Status](https://api.cirrus-ci.com/github/cpsylab/Lithium.jl.svg)](https://cirrus-ci.com/github/cpsylab/Lithium.jl)
 [![Coverage](https://codecov.io/gh/cpsylab/Lithium.jl/branch/master/graph/badge.svg)](https://codecov.io/gh/cpsylab/Lithium.jl)
 [![Coverage](https://coveralls.io/repos/github/cpsylab/Lithium.jl/badge.svg?branch=master)](https://coveralls.io/github/cpsylab/Lithium.jl?branch=master)
+
+
+# Installation 
+
+This package is not yet registered, so to install run the following command: 
+
+```julia 
+using Pkg; Pkg.add(url="https://github.com/cpsylab/Lithium.jl")
+```
