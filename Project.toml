@@ -3,6 +3,10 @@ uuid = "11699399-1d6a-4a57-a226-06bcd1f14848"
 authors = ["Abraham Nunes"]
 version = "0.1.0"
 
+[deps]
+DataFrames = "a93c6f00-e57d-5684-b7b6-d8193f3e46c0"
+Missings = "e1d29d7a-bbdc-5cf2-9ac0-f12de2c33e28"
+
 [compat]
 julia = "1.6"
 
