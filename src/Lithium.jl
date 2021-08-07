@@ -2,6 +2,7 @@ module Lithium
 
 using DataFrames 
 using Missings
+using MLJ
 
 # Functions for data clearning and preprocessing
 include("dataio.jl")
