@@ -369,9 +369,11 @@ function replace_centre_names(data::DataFrame)
     data[:,:centre] = replace.(data[:,:centre], "Maritimes"=>"MAR")
     data[:,:centre] = replace.(data[:,:centre], "Cagliari (Centro Bini)"=>"CB")
     data[:,:centre] = replace.(data[:,:centre], "Cagliari (University)"=>"CU")
+    data[:,:centre] = replace.(data[:,:centre], "Cagliari (PLOT-BD)"=>"CP")
     data[:,:centre] = replace.(data[:,:centre], "Poznan"=>"POZ")
     data[:,:centre] = replace.(data[:,:centre], "Austria"=>"AUT")
-    data[:,:centre] = replace.(data[:,:centre], "Barcelona"=>"BAR")
+    data[:,:centre] = replace.(data[:,:centre], "Barcelona (Colom)"=>"BARC")
+    data[:,:centre] = replace.(data[:,:centre], "Barcelona (Murru)"=>"BARM")
     return data 
 end
 
@@ -410,10 +412,10 @@ end
 
 # Splits the data into features, targets and confounds (centre)
 function unpack_features_targets_covariates(
-    data::Union{DataFrame, SubDataFrame}, 
-    target::String, 
-    thresh::Union{Nothing, Float64, Int64}=nothing
-)
+        data::Union{DataFrame, SubDataFrame}, 
+        target::String, 
+        thresh::Union{Nothing, Float64, Int64}=nothing
+    )
     if target == "li_response_binary"
         Y = data[:, "li_total_score"] |> Vector{Float64} 
         Y = map(x -> x >= thresh ? 1. : 0., Y)
