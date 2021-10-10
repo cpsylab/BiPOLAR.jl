@@ -3,10 +3,26 @@ module Lithium
 using DataFrames 
 using Missings
 using MLJ
+using Distributions
 
-# Functions for data clearning and preprocessing
-include("dataio.jl")
 
+include("analysis.jl")  # Experimental designs
+include("cb.jl")        # Causal bootstrapping
+include("criticism.jl") # Performance evaluation functions
+include("dataio.jl")    # Data cleaning/preprocessing
+include("models.jl")    # Model specifications
+
+# Analyses functions 
+export shuffle_split
+
+# Causal bootstrapping functions
+export cb_backdoor_discrete
+
+# Criticism functions 
+export classification_report, store_classification_results
+export initialize_roc_plot
+
+# DataIO functions
 export remove_columns
 export remove_ltg_targets, remove_vpa_targets
 export remove_ids, remove_opcrit, remove_excluded_variables
@@ -24,5 +40,8 @@ export unpack_features_targets_covariates
 export prune_missingness
 export coerce_scitypes
 
+# Model functions 
+export linear_classifier 
+export rf_classifier
 
 end

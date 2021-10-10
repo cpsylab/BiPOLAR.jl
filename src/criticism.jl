@@ -25,3 +25,30 @@ function classification_report(i, yhat, y)
     )
     return out
 end
+
+
+"""
+    store_classification_results(df, fold, yhat, ytrue)
+
+    This function takes the results dataframe and adds to it a row for the 
+    classification results in the current fold.
+"""
+function store_classification_results(df, fold, yhat, ytrue)
+    return [df; classification_report(fold, yhat, coerce(ytrue, OrderedFactor))]
+end
+
+
+"""
+    initialize_roc_plot([xlabel, ylabel, title])
+
+Instantiates the object upon which we will plot the ROC curves
+"""
+function initialize_roc_plot(;
+    xlabel::String="False Positive Rate", 
+    ylabel::String="True Positive Rate", 
+    title::String="ROC"
+    )
+    U = range(0, 1, step=0.1)
+    return plot(U, U, c=:black, ls=:dash, label=nothing, 
+                xlabel=xlabel, ylabel=ylabel, title=title)
+end
