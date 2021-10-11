@@ -44,6 +44,7 @@ export replace_centre_names
 export remove_incomplete_targets
 export remove_incomplete_li_target_binary
 export remove_incomplete_li_target_numerical
+export remove_lowvar
 export compute_alda_b_score, compute_alda_total_score
 export unpack_features_targets_covariates
 export prune_missingness

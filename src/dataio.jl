@@ -390,14 +390,14 @@ remove_incomplete_li_target_binary(data::DataFrame) = remove_incomplete_targets(
 remove_incomplete_li_target_numerical(data::DataFrame) = remove_incomplete_targets(data, r"li_[b|a]")
 
 """
-    remove_zerovar(X)
+    remove_lowvar(X, v)
 
-    Removes variables whose variance is equal to 0 or NaN.
+    Removes variables whose variance is <v or NaN.
 """
 Base.isnan(x::Nothing) = false
-function remove_zerovar(X::DataFrame)
+function remove_lowvar(X::DataFrame, v::Float64=1e-3)
     feat = describe(X, :std)
-    return select(X, filter(:std => x -> !any(f -> f(x), (y-> !isnothing(y) ? y < 0.5 : false, ismissing, Base.isnan)), feat).variable)
+    return select(X, filter(:std => x -> !any(f -> f(x), (y-> !isnothing(y) ? y < v : false, ismissing, Base.isnan)), feat).variable)
 end
 
 """
