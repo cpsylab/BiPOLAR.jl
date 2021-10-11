@@ -390,6 +390,17 @@ remove_incomplete_li_target_binary(data::DataFrame) = remove_incomplete_targets(
 remove_incomplete_li_target_numerical(data::DataFrame) = remove_incomplete_targets(data, r"li_[b|a]")
 
 """
+    remove_zerovar(X)
+
+    Removes variables whose variance is equal to 0 or NaN.
+"""
+Base.isnan(x::Nothing) = false
+function remove_zerovar(X::DataFrame)
+    feat = describe(X, :std)
+    return select(X, filter(:std => x -> !any(f -> f(x), (y-> !isnothing(y) ? y < 0.5 : false, ismissing, Base.isnan)), feat).variable)
+end
+
+"""
     compute_alda_b_score(data[, med])
 
 Sum over Alda B scores for `med ∈ ["li", "vpa", "ltg"]`

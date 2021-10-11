@@ -29,7 +29,7 @@ function split_prune_bootstrap(
     Xₜᵣ, Yₜᵣ, Zₜᵣ, Xₜₑ, Yₜₑ, Zₜₑ = shuffle_split(X, Y, Z, train_p)
     Xₜᵣ = select(Xₜᵣ, prune_missingness(Xₜᵣ, prune_p))
     if bootstrap_samples > 0
-        Xₜᵣ, Yₜᵣ, Zₜᵣ = causal_bootstrapping(Xₜᵣ, Yₜᵣ, Zₜᵣ, bootstrap_samples)
+        Xₜᵣ, Yₜᵣ, Zₜᵣ = discrete_causal_bootstrapping(Xₜᵣ, Yₜᵣ, Zₜᵣ, bootstrap_samples)
     end 
     return Xₜᵣ, Yₜᵣ, Zₜᵣ, Xₜₑ, Yₜₑ, Zₜₑ
 end
