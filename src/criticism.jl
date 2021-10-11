@@ -36,7 +36,7 @@ function classification_predictions(fold, train_site, test_sites, ytrue, ypred)
         fold = fold,
         train_site = train_site,
         test_site = vec(Matrix(test_sites)),
-        ytrue = ytrue,
+        ytrue = int(ytrue, type=Int64) .- 1,
         ypred = map(y->pdf(y, 1.0), ypred))
 end
 
@@ -66,7 +66,7 @@ function plot_roc_curves(
 end
 
 """
-    store_classification_predictions(fold, train_sites, test_sites, ytrue, ypred)
+    store_classification_predictions(df, fold, train_sites, test_sites, ytrue, ypred)
 
     Returns a table with individual level predictions
 """
