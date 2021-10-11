@@ -4,6 +4,7 @@ using DataFrames
 using Missings
 using MLJ
 using Distributions
+using Plots
 
 
 include("analysis.jl")  # Experimental designs
@@ -13,6 +14,7 @@ include("dataio.jl")    # Data cleaning/preprocessing
 include("models.jl")    # Model specifications
 
 # Analyses functions 
+export classification_analysis
 export shuffle_split
 export split_prune_bootstrap
 
@@ -25,6 +27,8 @@ export classification_report
 export classification_predictions
 export store_classification_results
 export store_classification_predictions
+export compute_reliability_curve
+export plot_reliability_curves
 export plot_roc_curves
 
 # DataIO functions
