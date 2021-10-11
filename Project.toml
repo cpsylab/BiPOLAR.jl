@@ -6,6 +6,7 @@ version = "0.1.0"
 [deps]
 DataFrames = "a93c6f00-e57d-5684-b7b6-d8193f3e46c0"
 Distributions = "31c24e10-a181-5473-b8eb-7969acd0382f"
+LaTeXStrings = "b964fa9f-0449-5b57-a5c2-d3ea65f4040f"
 Missings = "e1d29d7a-bbdc-5cf2-9ac0-f12de2c33e28"
 MLJ = "add582a8-e3ab-11e8-2d5e-e98b27df1bc7"
 MLJScikitLearnInterface = "5ae90465-5518-4432-b9d2-8a1def2f0cab"
