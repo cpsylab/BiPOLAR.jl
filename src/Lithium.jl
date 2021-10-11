@@ -14,13 +14,18 @@ include("models.jl")    # Model specifications
 
 # Analyses functions 
 export shuffle_split
+export split_prune_bootstrap
 
 # Causal bootstrapping functions
 export cb_backdoor_discrete
+export discrete_causal_bootstrapping
 
 # Criticism functions 
-export classification_report, store_classification_results
-export initialize_roc_plot
+export classification_report
+export classification_predictions
+export store_classification_results
+export store_classification_predictions
+export plot_roc_curves
 
 # DataIO functions
 export remove_columns

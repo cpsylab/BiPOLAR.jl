@@ -26,6 +26,53 @@ function classification_report(i, yhat, y)
     return out
 end
 
+"""
+    classification_predictions(fold, train_sites, test_sites, ytrue, ypred)
+
+    Returns a table with individual level predictions
+"""
+function classification_predictions(fold, train_site, test_sites, ytrue, ypred)
+    return DataFrame(
+        fold = fold,
+        train_site = train_site,
+        test_site = vec(Matrix(test_sites)),
+        ytrue = ytrue,
+        ypred = map(y->pdf(y, 1.0), ypred))
+end
+
+"""
+    plot_roc_curves(roc_curves; color, alpha, title, xlabel, ylabel, figsize)
+
+    Plots ROC curves.
+"""
+function plot_roc_curves(
+    roc_curves::Vector;
+    color::Symbol=:black, 
+    alpha::Float64=0.5,
+    title::String="ROC Curve", 
+    xlabel::String="FPR", 
+    ylabel::String="TPR", 
+    figsize::Tuple{Int64,Int64}=(250,250))
+
+    fig = plot([0,1], [0,1], c=color, ls=:dash, 
+                label=nothing, title=title,
+                ylabel=ylabel, xlabel=xlabel, size=figsize)
+    K = size(roc_curves)[1]
+    for i ∈ 1:K
+        plot!(roc_curves[i][1], roc_curves[i][2], 
+        c=color, alpha=alpha, label=nothing)
+    end
+    return fig
+end
+
+"""
+    store_classification_predictions(fold, train_sites, test_sites, ytrue, ypred)
+
+    Returns a table with individual level predictions
+"""
+function store_classification_predictions(df, fold, train_site, test_sites, ytrue, ypred)
+    return [df; classification_predictions(fold, train_site, test_sites, ytrue, ypred)]
+end
 
 """
     store_classification_results(df, fold, yhat, ytrue)
@@ -35,20 +82,4 @@ end
 """
 function store_classification_results(df, fold, yhat, ytrue)
     return [df; classification_report(fold, yhat, coerce(ytrue, OrderedFactor))]
-end
-
-
-"""
-    initialize_roc_plot([xlabel, ylabel, title])
-
-Instantiates the object upon which we will plot the ROC curves
-"""
-function initialize_roc_plot(;
-    xlabel::String="False Positive Rate", 
-    ylabel::String="True Positive Rate", 
-    title::String="ROC"
-    )
-    U = range(0, 1, step=0.1)
-    return plot(U, U, c=:black, ls=:dash, label=nothing, 
-                xlabel=xlabel, ylabel=ylabel, title=title)
 end

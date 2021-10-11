@@ -40,3 +40,15 @@ function cb_backdoor_discrete(
     X′ = X[indices,:]; U′ = U[indices,:]
     return X′, Y′, U′
 end
+
+
+""" 
+    discrete_causal_bootstrapping(X, Y, Z, M)
+
+    Function that wraps the cb_backdoor_discrete causal bootstrapping procedure to coerce the input and 
+    output datatypes into formats appropriate for the prediction models.
+"""
+function discrete_causal_bootstrapping(X, Y, Z, M)
+    X′, Y′, Z′ = cb_backdoor_discrete(X, coerce(Y, Count) .- 1, Matrix(Z), M)
+    return X′, vec(coerce(Y′, Finite)), Z′
+end
