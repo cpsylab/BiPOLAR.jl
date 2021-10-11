@@ -1,6 +1,7 @@
 module Lithium
 
-using DataFrames 
+using DataFrames
+using LaTeXStrings 
 using Missings
 using MLJ
 using Distributions
