@@ -93,9 +93,9 @@ function plot_roc_curves(
     roc_curves::Vector;
     color::Symbol=:black, 
     alpha::Float64=0.5,
-    title::String="ROC Curve", 
-    xlabel::String="FPR", 
-    ylabel::String="TPR", 
+    title::Union{String, LaTeXString}="ROC Curve", 
+    xlabel::Union{String, LaTeXString}=L"FPR", 
+    ylabel::Union{String, LaTeXString}=L"TPR", 
     figsize::Tuple{Int64,Int64}=(250,250))
 
     fig = plot([0,1], [0,1], c=color, ls=:dash, 
@@ -128,3 +128,18 @@ function store_classification_results(df, fold, yhat, ytrue)
     return [df; classification_report(fold, yhat, coerce(ytrue, OrderedFactor))]
 end
 
+""" 
+    summarize_classification_results(results, sigdigits)
+
+    Returns a formatted version of the results with a column showing mean and 95%ci 
+    rounded to `sigdigits`.
+"""
+function summarize_classification_results(results::DataFrame, sigdigits::Int64=4)
+    summary_res = describe(results, :mean, :std)
+    summary_res[:, :mean] = round.(summary_res[:, :mean]; sigdigits=sigdigits)
+    summary_res[:, :se] = round.(summary_res[:, :std] ./ sqrt(K); sigdigits=sigdigits)
+    summary_res[:, :lci] = round.(summary_res[:, :mean] .+ quantile(Normal(), 0.025).*summary_res[:, :se]; sigdigits=sigdigits)
+    summary_res[:, :uci] = round.(summary_res[:, :mean] .+ quantile(Normal(), 1-0.025).*summary_res[:, :se]; sigdigits=sigdigits)
+    summary_res[:, :Result] = map((x,y,z) -> "$x ($y, $z)", summary_res.mean, summary_res.lci, summary_res.uci)
+    return summary_res
+end

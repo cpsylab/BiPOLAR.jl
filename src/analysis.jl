@@ -20,7 +20,7 @@ end
 """
 function split_prune_bootstrap(
     X::DataFrame, 
-    Y::Vector{Float64}, 
+    Y::Vector, 
     Z::Union{DataFrame, Nothing}, 
     train_p::Float64=0.8, 
     prune_p::Float64=0.6, 
@@ -66,4 +66,39 @@ function classification_analysis(
     end
 
     return res, predictions, roc_curves
+end
+
+
+"""
+    pca_plot(X,U,pc_i,pc_j; palette, alpha, title, dpi)
+
+Performs principal components analysis and plots PCs.
+"""
+function pca_plot(
+    X::DataFrame, 
+    U::Vector, 
+    pc_i::Int64=1, 
+    pc_j::Int64=2;
+    palette::Symbol=:seaborn_bright, 
+    alpha::Float64=0.5, 
+    title::String="", 
+    dpi::Int64=350)
+
+    pipe = @pipeline FeatureSelector FillImputer Standardizer OneHotEncoder PCA(maxoutdim=10)
+    ℳ = machine(pipe, X) |> fit!
+    Z′ = ℳ(X)
+
+    fig = plot(palette=:seaborn_bright, 
+        title=title,
+        xlabel=L"PC_1", 
+        ylabel=L"PC_2", 
+        size=(400,400))
+    for u ∈ unique(U)
+        fig = scatter!(
+            Z′[U .== u, pc_i], 
+            Z′[U .== u, pc_j], 
+            alpha=0.5, label=u,
+            dpi=dpi)
+    end
+    return fig
 end

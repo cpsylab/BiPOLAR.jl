@@ -225,6 +225,15 @@ remove_ltg_targets(data::DataFrame) = remove_columns(data, "ltg_")
 remove_vpa_targets(data::DataFrame) = remove_columns(data, "vpa_")
 remove_opcrit(data::DataFrame) = remove_columns(data, "opcrit_")
 
+"""
+    remove_n_episode_outliers(data, cols)
+
+Removes values specified as >=99, which in the dataset for many variables means "too high to count"
+"""
+function remove_n_episode_outliers(data::DataFrame)
+    data[:, :n_episodes_pre_li] = passmissing(x -> x >=99 ? missing : x).(data[:, :n_episodes_pre_li])
+    return data
+end
 
 """
     probands_only(data)
