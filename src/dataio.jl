@@ -470,3 +470,14 @@ function prune_missingness(data::DataFrame, p::Float64=0.6)
     return describe(data, :nmissing) |> x -> x[x[:,:nmissing]./size(data,1) .< p,:variable]
 end
 
+""" 
+    prune_sparse_observations(X, prune_p)
+
+Removes subjects with more than prune_p amount of variables missing
+"""
+function prune_sparse_observations(X::DataFrame, prune_p::Float64=1.0)
+    # Count missingness by subject 
+    M = ismissing.(data) |> Matrix{Bool}
+    v = sum(M, dims=2)./size(M, 2) |> vec
+    return X[v .<= prune_p, :]
+end

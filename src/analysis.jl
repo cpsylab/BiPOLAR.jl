@@ -1,3 +1,5 @@
+PCA = @load PCA pkg="MultivariateStats"
+
 """
     shuffle_split(X, Y, Z, p_split)
 
