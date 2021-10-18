@@ -14,6 +14,7 @@ include("criticism.jl") # Performance evaluation functions
 include("dataio.jl")    # Data cleaning/preprocessing
 include("heterogeneity.jl") # Heterogeneity analysis functions
 include("models.jl")    # Model specifications
+include("qc.jl")        # Quality control functions
 
 # Analyses functions 
 export classification_analysis
@@ -28,7 +29,8 @@ export discrete_causal_bootstrapping
 # Criticism functions 
 export classification_report
 export classification_predictions
-export store_classification_results, summarize_classification_results
+export store_classification_results
+export summarize_classification_results
 export store_classification_predictions
 export compute_reliability_curve
 export plot_reliability_curves
@@ -41,6 +43,7 @@ export remove_ids, remove_opcrit, remove_excluded_variables
 export remove_n_episode_outliers
 
 export probands_only
+export limit_to_bd_diagnosis
 export merge_mania_hypomania_ageofonset 
 export normalize_family_history
 export narrow_comorbidity_definition
@@ -60,5 +63,10 @@ export renyi, renyi_pooled, renyi_within, renyi_between
 # Model functions 
 export linear_classifier 
 export rf_classifier
+
+# QC 
+export filter_qc_exclusions
+export qc_age_consistency
+
 
 end

@@ -247,6 +247,17 @@ function probands_only(data::DataFrame)
 end
 
 """
+    limit_to_bd_diagnosis(data)
+
+Includes only subjects with BDI or II
+"""
+function limit_to_bd_diagnosis(data::DataFrame)
+    data[ismissing.(data.diagnosis), :diagnosis] .= "FILLER"
+    filter!(:diagnosis => x -> (x == "BD I") || (x == "BD II"), data)
+    return data 
+end
+
+"""
     merge_mania_hypomania_ageofonset(data)
 
 Combines the ages of mania and hypomania onset into a single variable where the minimum is
@@ -295,7 +306,7 @@ end
 
 For the comorbidity fields `"social_anxiety", "panic_disorder", "generalized_anxiety", 
 "ocd", "substance_abuse", "adhd","learning_disability", "primary_insomnia", 
-"personality_disorder"` we set a binary indicator as positive only if they met full criteria.
+"personality_disorder"` we set a binary indicator as positive even if they are subsyndromal.
 """
 function narrow_comorbidity_definition(data::DataFrame)
     allowmissing(data)
@@ -303,7 +314,7 @@ function narrow_comorbidity_definition(data::DataFrame)
               "ocd", "substance_abuse", "adhd","learning_disability", 
               "primary_insomnia", "personality_disorder"]
     for c ∈ comorb
-        data[:,c] = passmissing(x -> replace(x, "Subsyndromal"=>"No")).(data[:,c])
+        data[:,c] = passmissing(x -> replace(x, "Subsyndromal"=>"Yes")).(data[:,c])
         data[:,c] = passmissing(x -> replace(x, "Full criteria"=>"Yes")).(data[:,c])
     end
 
