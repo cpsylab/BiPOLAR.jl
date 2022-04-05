@@ -6,7 +6,7 @@
  """
 function classification_report(i, yhat, y)
     P′ = [pdf(yhat[j], 1.0) for j ∈ 1:size(yhat)[1]]
-    yₚ = [p >= 0.5 for p ∈ P′]
+    yₚ = coerce([float(p >= 0.5) for p ∈ P′], OrderedFactor)
     out = DataFrame(
         Run = i,
         TN  = true_negative(yₚ, y),
@@ -21,7 +21,7 @@ function classification_report(i, yhat, y)
         AUC = auc(yhat, y),
         MCC = mcc(yₚ, y),
         F1  = f1score(yₚ, y),
-        Brier = mean((yₚ .- float(y)).^2)
+        Brier = mean((float(yₚ) .- float(y)).^2)
     )
     return out
 end
