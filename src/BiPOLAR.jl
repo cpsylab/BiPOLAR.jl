@@ -1,4 +1,4 @@
-module Lithium
+module BiPOLAR
 
 using DataFrames
 using LaTeXStrings 
