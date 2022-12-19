@@ -1,6 +1,6 @@
-using Lithium
+using BiPOLAR
 using Test
 
-@testset "Lithium.jl" begin
+@testset "BiPOLAR.jl" begin
     # Write your tests here.
 end
