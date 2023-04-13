@@ -1,5 +1,5 @@
-LogisticClassifier = @load LogisticClassifier pkg="ScikitLearn"
-RandomForestClassifier = @load RandomForestClassifier pkg="ScikitLearn"
+LogisticClassifier = @load LogisticClassifier pkg="MLJScikitLearnInterface"
+RandomForestClassifier = @load RandomForestClassifier pkg="MLJScikitLearnInterface"
 
 
 """
